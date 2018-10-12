@@ -62,7 +62,6 @@ var jane = Object.create(personProto, {
 */
 
 
-
 // Primitives vs objects
 /*
 // Primitives
@@ -331,12 +330,12 @@ c) correct answer (I would use a number for this)
 */
 
 (function() {
-  var Question = function(question, answers, correctAnswer) {
+  var Question = function(question, answers, correct) {
     this.question = question;
     this.answers = answers;
-    this.correctAnswer = correctAnswer;
+    this.correct = correct;
   }
-
+  
   Question.prototype.displayQuestion = function() {
     console.log(this.question);
     
@@ -344,57 +343,38 @@ c) correct answer (I would use a number for this)
       console.log(i + ': ' + this.answers[i]);
     }
   }
-
-  Question.prototype.checkAnswer = function(ans) {
-    console.log('---------------------------------------------------');
-    if (ans === this.correctAnswer) {
-      console.log('Correct answer!');
+  
+  Question.prototype.checkAnswer = function(answer) {
+    if (+answer === this.correct) {
+      console.log('Correct!');
       score += 1;
     } else {
-      console.log('Wrong answer...');
+      console.log('Wrong.');
     }
-    console.log('---------------------------------------------------');
+    console.log('Your score is: ' + score);
   }
-  
-  Question.prototype.displayScore = function() {
-    console.log('Your current score is: ' + score);
-    console.log('---------------------------------------------------');
-  }
-
-  var q1 = new Question('Who won the FACEIT Major: London 2018?',
-                              ['Astralis', 'mibr', 'Natus Vincere'], 0);
-
-  var q2 = new Question('Who was the best CS:GO player in the world in 2016 by HLTV.org?',
-                              ['s1mple', 'olofmeister', 'coldzera'], 2);
-
-  var q3 = new Question('Who wasn\'t the member of Gambit team when they won PGL Krakow 2017?',
-                              ['Zeus', 'Hobbit', 'seized'], 2);
-
-  var q4 = new Question('How many Major finals did Na`Vi lose?',
-                              ['1', '2', '3'], 2);
-
-  var q5 = new Question('Who\'s the last Polish hope?',
-                              ['snatchie','BnTeT', 'TaZ'], 1);
-
-      
-  var questions = [q1, q2, q3, q4, q5];
   
   var score = 0;
   
-  function askQuestion() {
+  var q1 = new Question('20 * 3 = ?', [0, 55, 60, 40], 2);
+  var q2 = new Question('9 * 6 = ?', [54, 56, 48], 0);
+  var q3 = new Question('5 * 4 = ?', [15, 25, 20], 2);
+  var q4 = new Question('21 / 7 = ?', [4, 3, 2], 1);
+  
+  var questions = [q1, q2, q3, q4];
+  
+  function logQuestion() {
     var n = Math.floor(Math.random() * questions.length);
     questions[n].displayQuestion();
-    var answer = prompt('Please enter the answer', '');
     
+    var answerPrompt = prompt('Please enter the answer', '');
     
-    if (answer !== null) {
-      questions[n].checkAnswer(+answer);
-      questions[n].displayScore();
+    if (answerPrompt !== null) {
+      questions[n].checkAnswer(answerPrompt);
       
-      askQuestion();
-    } 
+      logQuestion();
+    }
   }
   
-  askQuestion();
-  
+  logQuestion();
 })();
