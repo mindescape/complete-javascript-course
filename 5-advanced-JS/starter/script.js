@@ -328,7 +328,7 @@ c) correct answer (I would use a number for this)
 
 11. Display the score in the console. Use yet another method for this.
 */
-
+/*
 (function() {
   var Question = function(question, answers, correct) {
     this.question = question;
@@ -378,3 +378,4 @@ c) correct answer (I would use a number for this)
   
   logQuestion();
 })();
+*/
